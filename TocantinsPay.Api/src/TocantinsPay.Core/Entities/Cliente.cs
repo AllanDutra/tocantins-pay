@@ -1,20 +1,34 @@
-﻿namespace TocantinsPay.Core.Entities;
+﻿using TocantinsPay.Core.Enums;
+
+namespace TocantinsPay.Core.Entities;
 
 public class Cliente
 {
-    public Guid Id { get; set; }
+    public Cliente(string nomeCompleto, string email, string cpf, DateOnly dataNascimento, string telefone, string senha)
+    {
+        Id = Guid.NewGuid();
+        NomeCompleto = nomeCompleto;
+        Situacao = ESituacaoCliente.Ativo;
+        Email = email;
+        Cpf = cpf;
+        DataNascimento = dataNascimento;
+        Telefone = telefone;
+        Senha = senha;
+    }
 
-    public string NomeCompleto { get; set; } = null!;
+    public Guid Id { get; }
 
-    public short Situacao { get; set; }
+    public string NomeCompleto { get; }
 
-    public string Email { get; set; } = null!;
+    public ESituacaoCliente Situacao { get; }
 
-    public string Cpf { get; set; } = null!;
+    public string Email { get; }
 
-    public DateOnly DataNascimento { get; set; }
+    public string Cpf { get; }
 
-    public string Telefone { get; set; } = null!;
+    public DateOnly DataNascimento { get; }
 
-    public string Senha { get; set; } = null!;
+    public string Telefone { get; }
+
+    public string Senha { get; }
 }
