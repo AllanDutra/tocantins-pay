@@ -1,3 +1,4 @@
+using TocantinsPay.Api.Extensions;
 using TocantinsPay.Application;
 using TocantinsPay.Infrastructure;
 
@@ -13,7 +14,8 @@ builder.Services.AddOpenApi();
 
 builder.Services
     .AddInfrastructure()
-    .AddApplication();
+    .AddApplication()
+    .AddValidators();
 
 var app = builder.Build();
 
