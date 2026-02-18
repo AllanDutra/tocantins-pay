@@ -9,5 +9,7 @@ namespace TocantinsPay.Core.Interfaces.Repositories
         Task<IEnumerable<Cliente>> BuscarAsync();
 
         Task<Cliente?> BuscarPorIdAsync(Guid id);
+
+        Task SaveChangesAsync();
     }
 }

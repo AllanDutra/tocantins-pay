@@ -7,7 +7,8 @@ namespace TocantinsPay.Api.Controllers
     public class ClienteController(
         ICadastrarClienteApplication cadastrarClienteApplication,
         IBuscarClientesApplication buscarClientesApplication,
-        IBuscarClientePorIdApplication buscarClientePorIdApplication
+        IBuscarClientePorIdApplication buscarClientePorIdApplication,
+        IAtualizarClienteApplication atualizarClienteApplication
     ) : MainController
     {
         [HttpPost]
@@ -37,6 +38,14 @@ namespace TocantinsPay.Api.Controllers
             }
 
             return Ok(cliente);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarAsync([FromRoute] Guid id, [FromBody] AtualizacaoClienteInputModel inputModel)
+        {
+            await atualizarClienteApplication.AtualizarAsync(id, inputModel);
+
+            return NoContent();
         }
     }
 }

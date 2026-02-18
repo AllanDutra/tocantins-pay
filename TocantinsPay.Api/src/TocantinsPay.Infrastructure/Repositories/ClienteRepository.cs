@@ -6,29 +6,32 @@ namespace TocantinsPay.Infrastructure.Repositories
 {
     public class ClienteRepository(TocantinsPayContext dbContext) : IClienteRepository
     {
-        private readonly TocantinsPayContext _dbContext = dbContext;
-
         public async Task<Guid> CadastrarAsync(Cliente cliente)
         {
-            var entidade = await _dbContext.Clientes.AddAsync(cliente);
+            var entidade = await dbContext.Clientes.AddAsync(cliente);
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             return entidade.Entity.Id;
         }
 
         public async Task<IEnumerable<Cliente>> BuscarAsync()
         {
-            var clientes = await _dbContext.Clientes.ToListAsync();
+            var clientes = await dbContext.Clientes.ToListAsync();
 
             return clientes;
         }
 
         public async Task<Cliente?> BuscarPorIdAsync(Guid id)
         {
-            var cliente = await _dbContext.Clientes.FirstOrDefaultAsync(c => c.Id == id);
+            var cliente = await dbContext.Clientes.FirstOrDefaultAsync(c => c.Id == id);
 
             return cliente;
+        }
+
+        public Task SaveChangesAsync()
+        {
+            return dbContext.SaveChangesAsync();
         }
     }
 }
