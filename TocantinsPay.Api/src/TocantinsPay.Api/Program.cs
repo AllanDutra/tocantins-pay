@@ -1,4 +1,5 @@
 using TocantinsPay.Api.Extensions;
+using TocantinsPay.Api.Middlewares;
 using TocantinsPay.Application;
 using TocantinsPay.Infrastructure;
 
@@ -15,7 +16,8 @@ builder.Services.AddOpenApi();
 builder.Services
     .AddInfrastructure()
     .AddApplication()
-    .AddValidators();
+    .AddValidators()
+    .AddMiddlewares();
 
 var app = builder.Build();
 
@@ -33,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.MapControllers();
 
