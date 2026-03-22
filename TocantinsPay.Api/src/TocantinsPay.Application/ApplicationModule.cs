@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TocantinsPay.Application.Applications;
+using TocantinsPay.Application.Notifications;
 using TocantinsPay.Core.Interfaces.Applications;
+using TocantinsPay.Core.Interfaces.Notifications;
 
 namespace TocantinsPay.Application
 {
@@ -12,6 +14,7 @@ namespace TocantinsPay.Application
             services.AddScoped<IBuscarClientesApplication, BuscarClientesApplication>();
             services.AddScoped<IBuscarClientePorIdApplication, BuscarClientePorIdApplication>();
             services.AddScoped<IAtualizarClienteApplication, AtualizarClienteApplication>();
+            services.AddScoped<INotifier, Notifier>();
 
             return services;
         }

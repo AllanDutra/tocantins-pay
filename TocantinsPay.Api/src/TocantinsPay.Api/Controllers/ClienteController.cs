@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TocantinsPay.Core.Interfaces.Applications;
+using TocantinsPay.Core.Interfaces.Notifications;
 using TocantinsPay.Core.Models.InputModels;
 
 namespace TocantinsPay.Api.Controllers
@@ -8,15 +9,16 @@ namespace TocantinsPay.Api.Controllers
         ICadastrarClienteApplication cadastrarClienteApplication,
         IBuscarClientesApplication buscarClientesApplication,
         IBuscarClientePorIdApplication buscarClientePorIdApplication,
-        IAtualizarClienteApplication atualizarClienteApplication
-    ) : MainController
+        IAtualizarClienteApplication atualizarClienteApplication,
+        INotifier notifier
+    ) : MainController(notifier)
     {
         [HttpPost]
         public async Task<IActionResult> CadastrarAsync([FromBody] ClienteInputModel inputModel)
         {
             var id = await cadastrarClienteApplication.CadastrarAsync(inputModel);
 
-            return Ok(id);
+            return RespostaPersonalizada(Ok(id));
         }
 
         [HttpGet]
@@ -24,7 +26,7 @@ namespace TocantinsPay.Api.Controllers
         {
             var clientes = await buscarClientesApplication.BuscarAsync();
 
-            return Ok(clientes);
+            return RespostaPersonalizada(Ok(clientes));
         }
 
         [HttpGet("{id}")]
@@ -37,7 +39,7 @@ namespace TocantinsPay.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(cliente);
+            return RespostaPersonalizada(Ok(cliente));
         }
 
         [HttpPut("{id}")]
@@ -45,7 +47,7 @@ namespace TocantinsPay.Api.Controllers
         {
             await atualizarClienteApplication.AtualizarAsync(id, inputModel);
 
-            return NoContent();
+            return RespostaPersonalizada(NoContent());
         }
     }
 }
