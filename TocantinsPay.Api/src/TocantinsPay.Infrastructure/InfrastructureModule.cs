@@ -12,6 +12,9 @@ namespace TocantinsPay.Infrastructure
             services.AddDbContext<TocantinsPayContext>(p => p.UseNpgsql("Server=localhost;Port=5490;Database=tocantinspay;User Id=admin;Password=admin;"));
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<ICarteiraRepository, CarteiraRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

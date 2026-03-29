@@ -5,10 +5,10 @@ using TocantinsPay.Core.Models.InputModels;
 
 namespace TocantinsPay.Application.Applications
 {
-    public class CadastrarClienteApplication(IClienteRepository clienteRepository) : ICadastrarClienteApplication
+    public class CadastrarClienteApplication(
+        IUnitOfWork unitOfWork
+    ) : ICadastrarClienteApplication
     {
-        private readonly IClienteRepository _clienteRepository = clienteRepository;
-
         public async Task<Guid> CadastrarAsync(ClienteInputModel inputModel)
         {
             var cliente = new Cliente(
@@ -20,7 +20,24 @@ namespace TocantinsPay.Application.Applications
                 inputModel.Senha
             );
 
-            return await _clienteRepository.CadastrarAsync(cliente);
+            try
+            {
+                await unitOfWork.BeginTransactionAsync();
+
+                var clienteId = await unitOfWork.Clientes.CadastrarAsync(cliente);
+
+                var carteira = new Carteira(clienteId);
+
+                await unitOfWork.Carteiras.CadastrarAsync(carteira);
+
+                await unitOfWork.CommitAsync();
+
+                return clienteId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
