@@ -6,18 +6,24 @@ namespace TocantinsPay.Infrastructure.Repositories
     public class UnitOfWork(
         TocantinsPayContext dbContext,
         IClienteRepository clientes,
-        ICarteiraRepository carteiras
+        ICarteiraRepository carteiras,
+        ITransacaoRepository transacoes
     ) : IUnitOfWork
     {
         private IDbContextTransaction? _transaction;
 
         public IClienteRepository Clientes => clientes;
-
         public ICarteiraRepository Carteiras => carteiras;
+        public ITransacaoRepository Transacoes => transacoes;
 
         public async Task BeginTransactionAsync()
         {
             _transaction = await dbContext.Database.BeginTransactionAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task CommitAsync()

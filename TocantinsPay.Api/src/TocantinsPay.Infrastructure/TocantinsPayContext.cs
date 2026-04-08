@@ -14,7 +14,7 @@ namespace TocantinsPay.Infrastructure
 
         public virtual DbSet<Endereco> Enderecos { get; set; }
 
-        public virtual DbSet<Transacao> Transacaos { get; set; }
+        public virtual DbSet<Transacao> Transacoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

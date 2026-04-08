@@ -4,7 +4,9 @@
     {
         IClienteRepository Clientes { get; }
         ICarteiraRepository Carteiras { get; }
+        ITransacaoRepository Transacoes { get; }
         Task BeginTransactionAsync();
+        Task SaveChangesAsync();
         Task CommitAsync();
     }
 }

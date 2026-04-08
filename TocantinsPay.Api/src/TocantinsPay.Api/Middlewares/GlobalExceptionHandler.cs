@@ -26,7 +26,7 @@ namespace TocantinsPay.Api.Middlewares
             context.Response.ContentType = "application/json";
 
             var mensagemErro = 
-                Variaveis.Geral.ENV == "dev" ? 
+                Variaveis.Geral.ENV == "Development" ? 
                     (ex.InnerException?.Message ?? ex.Message ?? MENSAGEM_PADRAO)
                     : MENSAGEM_PADRAO;
 

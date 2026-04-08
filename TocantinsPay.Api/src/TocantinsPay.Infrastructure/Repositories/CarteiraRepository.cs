@@ -1,4 +1,5 @@
-﻿using TocantinsPay.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TocantinsPay.Core.Entities;
 using TocantinsPay.Core.Interfaces.Repositories;
 
 namespace TocantinsPay.Infrastructure.Repositories
@@ -12,6 +13,11 @@ namespace TocantinsPay.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
 
             return entidade.Entity.Id;
+        }
+
+        public async Task<Carteira?> BuscarPorIdAsync(Guid carteiraId)
+        {
+            return await dbContext.Carteiras.FirstOrDefaultAsync(c => c.Id == carteiraId);
         }
     }
 }

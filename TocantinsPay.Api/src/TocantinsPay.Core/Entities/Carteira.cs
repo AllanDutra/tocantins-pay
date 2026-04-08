@@ -2,6 +2,11 @@
 
 public class Carteira
 {
+    public Carteira()
+    {
+        
+    }
+
     public Carteira(Guid clienteId)
     {
         Id = Guid.NewGuid();
@@ -13,7 +18,7 @@ public class Carteira
 
     public Guid Id { get; }
      
-    public decimal Saldo { get; }
+    public decimal Saldo { get; private set; }
 
     public string Conta { get; }
 
@@ -30,5 +35,10 @@ public class Carteira
         int digito = random.Next(0, 10);
 
         return $"{numeroConta}-{digito}";
+    }
+
+    public void AtualizarSaldo(decimal novoSaldo)
+    {
+        Saldo = novoSaldo;
     }
 }

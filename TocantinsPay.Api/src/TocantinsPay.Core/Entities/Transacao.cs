@@ -1,20 +1,40 @@
-﻿namespace TocantinsPay.Core.Entities;
+﻿using TocantinsPay.Core.Enums;
+using TocantinsPay.Core.Utils;
+
+namespace TocantinsPay.Core.Entities;
 
 public class Transacao
 {
-    public Guid Id { get; set; }
+    public Transacao()
+    {
+        
+    }
 
-    public short Tipo { get; set; }
+    public Transacao(ETipoTransacao tipo, decimal valor, string? descricao, Guid carteiraId, decimal saldoResultante, Guid? cofrinhoId = null)
+    {
+        Id = Guid.NewGuid();
+        Tipo = (short)tipo;
+        Data = DateAndTimeUtils.Now();
+        Valor = valor;
+        SaldoResultante = saldoResultante;
+        Descricao = descricao;
+        CarteiraId = carteiraId;
+        CofrinhoId = cofrinhoId;
+    }
 
-    public DateTime Data { get; set; }
+    public Guid Id { get; }
 
-    public decimal Valor { get; set; }
+    public short Tipo { get; }
 
-    public decimal SaldoResultante { get; set; }
+    public DateTime Data { get; }
 
-    public string? Descricao { get; set; }
+    public decimal Valor { get; }
 
-    public Guid CarteiraId { get; set; }
+    public decimal SaldoResultante { get; }
 
-    public Guid? CofrinhoId { get; set; }
+    public string? Descricao { get; }
+
+    public Guid CarteiraId { get; }
+
+    public Guid? CofrinhoId { get; }
 }

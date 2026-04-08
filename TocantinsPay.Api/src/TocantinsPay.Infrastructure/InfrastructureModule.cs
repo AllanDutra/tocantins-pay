@@ -13,6 +13,7 @@ namespace TocantinsPay.Infrastructure
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ICarteiraRepository, CarteiraRepository>();
+            services.AddScoped<ITransacaoRepository, TransacaoRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
