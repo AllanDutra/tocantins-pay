@@ -15,6 +15,7 @@ namespace TocantinsPay.Application
             services.AddScoped<IBuscarClientePorIdApplication, BuscarClientePorIdApplication>();
             services.AddScoped<IAtualizarClienteApplication, AtualizarClienteApplication>();
             services.AddScoped<IDepositarApplication, DepositarApplication>();
+            services.AddScoped<IDebitarApplication, DebitarApplication>();
             services.AddScoped<INotifier, Notifier>();
 
             return services;

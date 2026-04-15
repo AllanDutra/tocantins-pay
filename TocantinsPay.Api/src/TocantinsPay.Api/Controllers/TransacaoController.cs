@@ -7,6 +7,7 @@ namespace TocantinsPay.Api.Controllers
 {
     public class TransacaoController(
         IDepositarApplication depositarApplication,
+        IDebitarApplication debitarApplication,
         INotifier notifier
     ) : MainController(notifier)
     {
@@ -14,6 +15,14 @@ namespace TocantinsPay.Api.Controllers
         public async Task<IActionResult> DepositarAsync([FromBody] DepositoInputModel inputModel)
         {
             var saldoResultante = await depositarApplication.DepositarAsync(inputModel);
+
+            return RespostaPersonalizada(Ok(saldoResultante));
+        }
+
+        [HttpPost("debito")]
+        public async Task<IActionResult> DebitarAsync([FromBody] DebitoInputModel inputModel)
+        {
+            var saldoResultante = await debitarApplication.DebitarAsync(inputModel);
 
             return RespostaPersonalizada(Ok(saldoResultante));
         }
